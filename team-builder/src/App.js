@@ -4,53 +4,59 @@ import Form from './Form'
 
 const myTeam = [
   {
-    name: 'Dragoon', email: 'Dragoon@gmail.com',  role: 'Front-End Engineer',
+    name: 'Goten', email: 'Goten@gmail.com',  role: 'Front-End Engineer',
   },
   {
-    name: 'Dranzer', email: 'Dranzer@gmail.com',  role: 'Back-End Engineer',
+    name: 'Trunks', email: 'Trunks@gmail.com',  role: 'Back-End Engineer',
   },
   {
-    name: 'Driger', email: 'Driger@gmail.com', role: 'Web-Designer',
+    name: 'Vegeta', email: 'Vegeta@gmail.com', role: 'Web-Designer',
   },
   {
-    name: 'Draciel', email: 'Draciel@gmail.com',  role: 'Full-Stack Engineer',
+    name: 'Goku', email: 'Goku@gmail.com',  role: 'Full-Stack Engineer',
   },
 ];
 
 const initialFormValues = { 
+  ///// TEXT INPUTS /////
   name: '',
   email: '',
+  ///// DROPDOWN /////
   role: '',
 };
 
-function App() {
+export default function App() {
   const [members, setMembers] = useState(myTeam);
   const [formValue, setFormValue] = useState(initialFormValues);
 
-  const update = (evt) => {
-    const { newName, newValue} = evt.target;
-    setFormValue({ ...formValue, [newName]: newValue});
+  const update = (inputName, inputValue) => {
+    setFormValue({ ...formValue, [inputName]: inputValue});
   }
 
   const onSubmit = () => {
-    const rookie = {
+    const fighters = {
       name: formValue.name.trim(),
       email: formValue.name.trim(),
       role: formValue.role.trim(),
     }
 
-    setMembers([...members, rookie]);
+    setMembers([...members, fighters]);
     setFormValue(myTeam);
   };
 
   return (
     <div className='container'>
       <h1>A Simple Web Development Form</h1>
-      <Form formValue={formValue} update={update} submit={onSubmit} />
+      <Form 
+        values={formValue} 
+        update={update} 
+        submit={onSubmit} 
+      />
+
       {members.map((member, idx) => {
         return (
-          <div key={idx}>
-            {member.name} is the {member.role} its email is {member.email}
+          <div key={idx} details={member} >
+            {member.name} is the {member.role} their email is {member.email}
           </div>
         );
       })}
@@ -59,4 +65,3 @@ function App() {
   );
 }
 
-export default App;
